@@ -11,8 +11,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.10.0</quarkus.platform.version>
+        <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+        <quarkus.platform.version>3.8.999-SNAPSHOT</quarkus.platform.version>
         <quarkus.qe.framework.version>1.5.0.Beta2</quarkus.qe.framework.version>
         <quarkus.s2i.base-native-image>quay.io/quarkus/ubi-quarkus-native-binary-s2i:2.0</quarkus.s2i.base-native-image>
         <skipITs>false</skipITs>
@@ -44,27 +44,13 @@
             <artifactId>quarkus-arc</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-client</artifactId>
+            <groupId>io.quarkus.qe</groupId>
+            <artifactId>quarkus-test-cli</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus.qe</groupId>
-            <artifactId>quarkus-test-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
