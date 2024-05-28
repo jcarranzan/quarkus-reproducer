@@ -20,6 +20,10 @@ public class GzipMaxInputIT {
     final byte[] gzip_max_input_1K = new byte[1000];
     final byte[] gzip_max_input_10M = new byte[10000000];
 
+    final byte[] gzip_same_1K_limit_max = new byte[1024];
+
+    final byte[] zero_bytes = new byte[0];
+
     @QuarkusApplication(classes = {GzipResource.class, GzipClientService.class}, properties = "application.properties")
     static RestService app = new RestService();
 
@@ -60,6 +64,36 @@ public class GzipMaxInputIT {
                 .post("/gzip")
                 .then().log().all();
 
+    }
+
+    @Test
+    void sendMaxLimit1k() throws IOException {
+        byte[] compressedData = generateCompressedData(gzip_same_1K_limit_max);
+
+        Response response = app.given()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header("Content-Encoding", "gzip")
+                .body(compressedData)
+                .when()
+                .post("/gzip")
+                .then()
+                .extract().response();
+        assertEquals(HttpStatus.SC_OK, response.statusCode());
+    }
+
+    @Test
+    void sendZeroValue() throws IOException {
+        byte[] compressedData = generateCompressedData(zero_bytes);
+
+        Response response = app.given()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header("Content-Encoding", "gzip")
+                .body(compressedData)
+                .when()
+                .post("/gzip")
+                .then()
+                .extract().response();
+        assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR, response.statusCode());
     }
 
     private byte[] generateCompressedData(byte[] data) throws IOException {
